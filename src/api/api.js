@@ -8,7 +8,7 @@ import axios from "axios";
 //   baseURL: `${devEnv ? REACT_APP_DEV_API : REACT_APP_PROD_API}`,
 // });
 
-const API = axios.create({ baseURL: "https://jsonplaceholder.typicode.com/" });
+const API = axios.create({ baseURL: "http://baseapi.test/api/" });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("user")) {
@@ -18,6 +18,15 @@ API.interceptors.request.use((req) => {
   }
   return req;
 });
+
+API.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response.status === 404) {
+      //window.location.href = '/';
+      console.log("error.response", error.response.data.error);
+    }
+  });
 
 //export const getAllUsers = () => API.get(`users`);
 

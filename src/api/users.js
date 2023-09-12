@@ -12,4 +12,3 @@ export const getUser = (id) => API.get(`user?id=${id}`);
 // export const updateTour = (updatedTourData, id) =>
 //   API.patch(`/tour/${id}`, updatedTourData);
 // export const deleteTour = (id) => API.delete(`/tour/${id}`);
-export default API;
