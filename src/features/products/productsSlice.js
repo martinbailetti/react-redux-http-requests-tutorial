@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import {getAllUsers} from "../../api/users"
+import {getAllProducts} from "../../api/products"
 
-export const getUsers = createAsyncThunk('users/getUsers', async (page) => {
-  const response = await getAllUsers(page)
+export const getProducts = createAsyncThunk('products/getProducts', async (page) => {
+  const response = await getAllProducts()
   return response.data
 })
 
-export const usersSlice = createSlice({
-  name: 'users',
+export const productsSlice = createSlice({
+  name: 'products',
   initialState: {
     data: [],
     loading: 'idle',
@@ -15,20 +15,20 @@ export const usersSlice = createSlice({
   },
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getUsers.pending, (state, action) => {
+    builder.addCase(getProducts.pending, (state, action) => {
       if (state.loading === 'idle') {
         state.loading = 'pending'
       }
     })
 
-    builder.addCase(getUsers.fulfilled, (state, action) => {
+    builder.addCase(getProducts.fulfilled, (state, action) => {
       if (state.loading === 'pending') {
-        state.data = action.payload
+        state.data = action.payload.data
         state.loading = 'idle'
       }
     })
 
-    builder.addCase(getUsers.rejected, (state, action) => {
+    builder.addCase(getProducts.rejected, (state, action) => {
       if (state.loading === 'pending') {
         state.loading = 'idle'
         state.error = 'Error occured'
@@ -39,4 +39,4 @@ export const usersSlice = createSlice({
   },
 })
 
-export default usersSlice.reducer
+export default productsSlice.reducer

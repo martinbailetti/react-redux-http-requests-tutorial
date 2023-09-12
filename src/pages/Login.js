@@ -1,17 +1,25 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { login } from "../api/auth";
 
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
-  useEffect(() => {
-    localStorage.setItem("user", JSON.stringify({ token: "97989898987978" }));
-  }, []);
+
+  const navigate = useNavigate();
 
   const submitLogin = async (event) => {
     event.preventDefault();
     var data = new FormData(event.target);
     console.log("login", data);
-    const response = await login(data);
-    console.log("submitLogin", response);
+
+    try {
+      const response = await login(data);
+      console.log("submitLogin", response.data.data);
+
+      localStorage.setItem("auth", JSON.stringify(response.data.data));
+      navigate('/products')
+    } catch (err) {
+      console.log("try catch", err.response.data);
+    }
   };
 
   return (

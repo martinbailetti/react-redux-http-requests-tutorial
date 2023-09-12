@@ -6,7 +6,7 @@ import { useEffect } from "react";
 const Logout = () => {
 
     useEffect(() => {
-      localStorage.removeItem("user");
+      localStorage.removeItem("auth");
       }, []);
   
   return (

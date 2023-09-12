@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "./usersSlice";
+import { getProducts } from "./productsSlice";
 
 import Card from "../../components/Card";
 
 
-const UsersList = () => {
+const ProductsList = () => {
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
-  const { data, loading, error } = useSelector((state) => state.users);
+  const { data, loading, error } = useSelector((state) => state.products);
   console.log("Users", loading, data);
 
   useEffect(() => {
-    dispatch(getUsers(page));
+    dispatch(getProducts());
   }, [dispatch, page]);
 
   let content;
@@ -42,11 +42,11 @@ const UsersList = () => {
 
   return (
     <div>
-      <div onClick={() => dispatch(getUsers(page))}>refresh</div>
+      <div onClick={() => dispatch(getProducts())}>refresh</div>
       <div onClick={() => setPage(page + 1)}>page</div>
       <div className="row">{content}</div>
     </div>
   );
 }
 
-export default UsersList;
+export default ProductsList;

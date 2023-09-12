@@ -11,22 +11,22 @@ import axios from "axios";
 const API = axios.create({ baseURL: "http://baseapi.test/api/" });
 
 API.interceptors.request.use((req) => {
-  if (localStorage.getItem("user")) {
+  if (localStorage.getItem("auth")) {
     req.headers.Authorization = `Bearer ${
-      JSON.parse(localStorage.getItem("user")).token
+      JSON.parse(localStorage.getItem("auth")).token
     }`;
   }
   return req;
 });
 
-API.interceptors.response.use(
+/* API.interceptors.response.use(
   response => response,
   error => {
     if (error.response.status === 404) {
       //window.location.href = '/';
       console.log("error.response", error.response.data.error);
     }
-  });
+  }); */
 
 //export const getAllUsers = () => API.get(`users`);
 

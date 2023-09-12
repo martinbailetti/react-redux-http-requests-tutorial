@@ -1,8 +1,9 @@
 import API from "./api";
 
-export const getAllUsers = (page) => API.get(`users?pag=${page}`);
+export const getAllProducts = () => API.get(`products`);
+export const getProducts = (page) => API.get(`users?pag=${page}`);
 
-export const getUser = (id) => API.get(`user?id=${id}`);
+export const getProduct = (id) => API.get(`user?id=${id}`);
 // export const signIn = (formData) => API.post("/users/signin", formData);
 // export const signUp = (formData) => API.post("/users/signup", formData);
 

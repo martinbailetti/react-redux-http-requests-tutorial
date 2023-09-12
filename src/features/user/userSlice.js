@@ -1,14 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
-import {getAllUsers} from "../../api/users"
+import {getUserById} from "../../api/user"
 
-export const getUsers = createAsyncThunk('users/getUsers', async (page) => {
-  const response = await getUser(page)
+export const getUser = createAsyncThunk('user/getUser', async (id) => {
+  const response = await getUserById(id)
   return response.data
 })
 
 export const userSlice = createSlice({
-  name: 'users',
+  name: 'user',
   initialState: {
     data: [],
     loading: 'idle',
@@ -16,20 +15,20 @@ export const userSlice = createSlice({
   },
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getUsers.pending, (state, action) => {
+    builder.addCase(getUser.pending, (state, action) => {
       if (state.loading === 'idle') {
         state.loading = 'pending'
       }
     })
 
-    builder.addCase(getUsers.fulfilled, (state, action) => {
+    builder.addCase(getUser.fulfilled, (state, action) => {
       if (state.loading === 'pending') {
-        state.data = action.payload
+        state.data = action.payload.data
         state.loading = 'idle'
       }
     })
 
-    builder.addCase(getUsers.rejected, (state, action) => {
+    builder.addCase(getUser.rejected, (state, action) => {
       if (state.loading === 'pending') {
         state.loading = 'idle'
         state.error = 'Error occured'
