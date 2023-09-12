@@ -1,23 +1,36 @@
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-import './App.css'
-import Users from './features/users/Users'
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import { useEffect } from "react";
+import Users from "./pages/Users";
+import Protected from "./components/router/Protected";
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import Logout from "./pages/Logout";
 
 function App() {
+  console.log("APP");
+
+
+  const token = localStorage.getItem("user");
+
   return (
-    <div className="container">
-      <div className="d-flex border-bottom pt-2 pb-2 mb-5">
-        <div className="p-2 flex-grow-1">Redux Store</div>
-        <div>
-          <div>
-            <a className="nav-link" aria-current="page" href="#">
-              Users
-            </a>
-          </div>
-        </div>
-      </div>
-      <Users />
-    </div>
-  )
+    
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route
+            path="/users"
+            element={
+              <Protected isSignedIn={token ? true : false}>
+                <Users />
+              </Protected>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
