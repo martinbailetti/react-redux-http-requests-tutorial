@@ -16,6 +16,7 @@ const Login = () => {
       console.log("submitLogin", response.data.data);
 
       localStorage.setItem("auth", JSON.stringify(response.data.data));
+      console.log("navigate");
       navigate('/products')
     } catch (err) {
       console.log("try catch", err.response.data);

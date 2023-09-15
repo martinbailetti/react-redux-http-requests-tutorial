@@ -13,7 +13,7 @@ const API = axios.create({ baseURL: "http://baseapi.test/api/" });
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("auth")) {
     req.headers.Authorization = `Bearer ${
-      JSON.parse(localStorage.getItem("auth")).token
+      JSON.parse(localStorage.getItem("auth")).access_token
     }`;
   }
   return req;
